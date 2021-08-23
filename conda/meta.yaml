@@ -5,6 +5,11 @@ package:
 source:
   path: ..
 
+requirements:
+  build:
+    - sphinx
+    - sphinx_rtd_theme
+
 test:
   imports:
     - scippbuildtools
