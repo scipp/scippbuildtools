@@ -5,11 +5,6 @@ package:
 source:
   path: ..
 
-requirements:
-  build:
-    - sphinx>=1.6
-  run:
-
 test:
   imports:
     - scippbuildtools

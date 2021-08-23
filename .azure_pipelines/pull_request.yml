@@ -1,0 +1,38 @@
+parameters:
+- name: verbose
+  displayName: Verbose
+  type: boolean
+  default: false
+
+resources:
+  repositories:
+  - repository: SharedPipelines
+    name: scipp/pipelines
+    type: github
+    endpoint: scipp
+    ref: add_build_docs_option
+
+trigger:
+  branches:
+    exclude:
+      - '*'
+
+pr:
+  autoCancel: true
+  branches:
+    include:
+      - '*'
+
+extends:
+  template: stages.yml@SharedPipelines
+  parameters:
+    verbose: ${{ parameters.verbose }}
+    noarch: true
+    config:
+      linux:
+        py_versions: ['3.7']
+        conda_env: 'scippwidgets.yml'
+    deploy: true
+    conda_label: 'dev'
+    build_docs: false
+    publish_docs: false
