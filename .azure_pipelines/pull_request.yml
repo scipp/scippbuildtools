@@ -31,7 +31,7 @@ extends:
     config:
       linux:
         py_versions: ['3.7']
-        conda_env: 'scippwidgets.yml'
+        conda_env: 'scippbuildtools.yml'
     deploy: true
     conda_label: 'dev'
     build_docs: false
