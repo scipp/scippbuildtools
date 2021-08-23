@@ -5,6 +5,10 @@ package:
 source:
   path: ..
 
+requirements:
+  build:
+    - gitpython
+
 test:
   imports:
     - scippbuildtools
