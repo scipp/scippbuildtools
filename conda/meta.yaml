@@ -14,7 +14,7 @@ test:
     - scippbuildtools
 
 build:
-  number: {{ environ.get('GIT_DESCRIBE_NUMBER', 0) }}
+  number: {{ PKG_HASH }}
   noarch: python
   script:
     - python setup.py install
