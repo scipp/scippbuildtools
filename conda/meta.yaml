@@ -8,6 +8,8 @@ source:
 requirements:
   build:
     - setuptools
+  run:
+    - requests
 
 test:
   imports:
