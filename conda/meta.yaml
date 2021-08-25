@@ -14,7 +14,7 @@ test:
     - scippbuildtools
 
 build:
-  number: {{ PKG_HASH }}
+  number: 2
   noarch: python
   script:
     - python setup.py install

@@ -1,33 +1,10 @@
 # SPDX-License-Identifier: BSD-3-Clause
 # Copyright (c) 2021 Scipp contributors (https://github.com/scipp)
 import os
-import argparse
 import shutil
-import subprocess
 import multiprocessing
 import sys
-
-
-def _run_command(cmd, shell):
-    """
-    Run a command (supplied as a list) using subprocess.check_call
-    """
-    os.write(1, "{}\n".format(' '.join(cmd)).encode())
-    return subprocess.check_call(cmd, stderr=subprocess.STDOUT, shell=shell)
-
-
-def _get_absolute_paths(*paths):
-    abs_paths = [os.path.abspath(p) for p in paths]
-    return abs_paths
-
-
-def make_argument_parser():
-    parser = argparse.ArgumentParser(description='Build C++ library and run tests')
-    parser.add_argument('--prefix', default='install')
-    parser.add_argument('--source_dir', default='.')
-    parser.add_argument('--build_dir', default='build')
-    parser.add_argument('--caching', action='store_true', default=False)
-    return parser
+from . import tools
 
 
 class CppBuilder:
@@ -36,14 +13,15 @@ class CppBuilder:
     """
     def __init__(self, prefix=None, source_dir=None, build_dir=None, caching=None):
 
-        self._prefix, self._build_dir, self._source_dir = _get_absolute_paths(
+        self._prefix, self._build_dir, self._source_dir = tools.get_absolute_paths(
             prefix, build_dir, source_dir)
         self._caching = caching
         self._config = {}
 
     def enter_build_dir(self):
-        if not os.path.exists(self._build_dir):
-            os.makedirs(self._build_dir)
+        tools.make_dir(self._build_dir)
+        # if not os.path.exists(self._build_dir):
+        #     os.makedirs(self._build_dir)
         os.chdir(self._build_dir)
 
     def cmake_configure(self):
@@ -61,7 +39,7 @@ class CppBuilder:
 
         # Default cmake flags
         cmake_flags = {
-            # '-G': 'Ninja',
+            '-G': 'Ninja',
             '-DPython_EXECUTABLE': shutil.which("python"),
             '-DCMAKE_INSTALL_PREFIX': self._prefix,
             '-DWITH_CTEST': 'OFF',
@@ -110,21 +88,20 @@ class CppBuilder:
 
     def cmake_run(self):
         # Run cmake
-        _run_command(['cmake'] + self._config["flags_list"] + [self._source_dir],
-                     shell=self._config["shell"])
+        tools.run_command(['cmake'] + self._config["flags_list"] + [self._source_dir],
+                          shell=self._config["shell"])
         # Show cmake settings
-        _run_command(['cmake', '-B', '.', '-S', self._source_dir, '-LA'],
-                     shell=self._config["shell"])
+        tools.run_command(['cmake', '-B', '.', '-S', self._source_dir, '-LA'],
+                          shell=self._config["shell"])
 
     def cmake_build(self, target_list):
         # Compile benchmarks, C++ tests, and python library
         for target in target_list:
-            _run_command(['cmake', '--build', '.', '--target', target] +
-                         self._config["build_flags"],
-                         shell=self._config["shell"])
+            tools.run_command(['cmake', '--build', '.', '--target', target] +
+                              self._config["build_flags"],
+                              shell=self._config["shell"])
 
     def run_cpp_tests(self, test_list):
-
         for test in test_list:
-            _run_command([os.path.join('bin', self._config["build_config"], test)],
-                         shell=self._config["shell"])
+            tools.run_command([os.path.join('bin', self._config["build_config"], test)],
+                              shell=self._config["shell"])

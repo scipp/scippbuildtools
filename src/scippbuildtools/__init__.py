@@ -2,5 +2,6 @@
 # Copyright (c) 2021 Scipp contributors (https://github.com/scipp)
 # flake8: noqa: F401
 
+from .cpp import CppBuilder
 from .filemover import FileMover
-from .cpp import CppBuilder, make_argument_parser
+from .parsers import cpp_argument_parser, docs_argument_parser
