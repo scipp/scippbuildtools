@@ -16,7 +16,7 @@ test:
     - scippbuildtools
 
 build:
-  number: 3
+  number: 4
   noarch: python
   script:
     - python setup.py install
