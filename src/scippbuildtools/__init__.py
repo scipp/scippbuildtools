@@ -3,5 +3,6 @@
 # flake8: noqa: F401
 
 from .cpp import CppBuilder
+from .docs import DocsBuilder
 from .filemover import FileMover
 from .parsers import cpp_argument_parser, docs_argument_parser
