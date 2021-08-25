@@ -14,8 +14,6 @@ requirements:
 test:
   imports:
     - scippbuildtools
-    - scippbuildtools.cpp_argument_parser
-    - scippbuildtools.DocsBuilder
 
 build:
   number: 3
