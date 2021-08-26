@@ -38,9 +38,8 @@ class DocsBuilder:
         with open(properties_file, "a") as f:
             f.write(content)
 
-    def run_sphinx(self, builder='html'):
+    def run_sphinx(self, docs_dir, builder='html'):
         tools.run_command([
-            'sphinx-build', '-b', builder, '-d', self._work_dir, self._docs_dir,
-            self._prefix
+            'sphinx-build', '-b', builder, '-d', self._work_dir, docs_dir, self._prefix
         ],
                           shell=self._shell)
