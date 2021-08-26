@@ -18,12 +18,13 @@ def get_absolute_paths(*paths, root=None):
     if root is not None:
         abs_root = os.path.abspath(root)
     for path in paths:
-        if root is not None:
-            if os.path.isabs(path):
-                raise RuntimeError("Cannot prepend an absolute path with a root.")
-            abs_paths.append(os.path.join(abs_root, path))
+        if os.path.isabs(path):
+            abs_paths.append(path)
         else:
-            abs_paths.append(os.path.abspath(path))
+            if root is not None:
+                abs_paths.append(os.path.join(abs_root, path))
+            else:
+                abs_paths.append(os.path.abspath(path))
     return abs_paths
 
 
