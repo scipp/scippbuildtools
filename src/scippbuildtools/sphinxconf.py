@@ -210,3 +210,28 @@ linkcheck_ignore = [
     # Specific lines in Github blobs cannot be found by linkcheck.
     r'https?://github\.com/.*?/blob/[a-f0-9]+/.+?#'
 ]
+
+# -- Write theme_overrides
+
+with open('_static/theme_overrides.css') as f:
+    f.write(".wy-table-responsive table td,\n")
+    f.write(".wy-table-responsive table th {\n")
+    f.write("    white-space: initial !important;\n")
+    f.write("}\n")
+    f.write(".rst-content table.docutils td {\n")
+    f.write("    vertical-align: top !important;\n")
+    f.write("}\n")
+    f.write("div[class^='highlight'] pre {\n")
+    f.write("    white-space: pre;\n")
+    f.write("    white-space: pre-wrap;\n")
+    f.write("}\n")
+    f.write(".wy-side-nav-search>a img.logo,\n")
+    f.write(".wy-side-nav-search .wy-dropdown>a img.logo {\n")
+    f.write("  width: 16rem\n")
+    f.write("}\n")
+    f.write(".wy-side-nav-search {\n")
+    f.write("  background-color: #eee;\n")
+    f.write("}\n")
+    f.write(".wy-side-nav-search>div.version {\n")
+    f.write("  display: none;\n")
+    f.write("}\n")
