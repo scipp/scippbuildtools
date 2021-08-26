@@ -213,7 +213,7 @@ linkcheck_ignore = [
 
 # -- Write theme_overrides
 
-with open('_static/theme_overrides.css') as f:
+with open('_static/theme_overrides.css', 'w') as f:
     f.write(".wy-table-responsive table td,\n")
     f.write(".wy-table-responsive table th {\n")
     f.write("    white-space: initial !important;\n")
