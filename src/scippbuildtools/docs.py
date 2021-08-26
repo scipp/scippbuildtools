@@ -24,6 +24,7 @@ class DocsBuilder:
         target = os.path.join(self._data_dir, tar_name)
         tools.make_dir(self._data_dir)
         tools.download_file(os.path.join(remote_url, tar_name), target)
+        os.write(1, "Unpacking {} to {}\n".format(target, self._data_dir).encode())
         tar = tarfile.open(target, "r:gz")
         tar.extractall(path=self._data_dir)
         tar.close()
@@ -35,6 +36,7 @@ class DocsBuilder:
         config_dir = os.path.join(home, ".mantid")
         tools.make_dir(config_dir)
         properties_file = os.path.join(config_dir, "Mantid.user.properties")
+        os.write(1, "Mantid Config: {}\n".format(content).encode())
         with open(properties_file, "a") as f:
             f.write(content)
 
