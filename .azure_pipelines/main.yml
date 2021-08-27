@@ -13,15 +13,9 @@ resources:
     ref: main
 
 trigger:
-  branches:
-    exclude:
-      - '*'
+  - main
 
-pr:
-  autoCancel: true
-  branches:
-    include:
-      - '*'
+pr: none
 
 extends:
   template: stages.yml@SharedPipelines
@@ -32,6 +26,5 @@ extends:
       linux:
         py_versions: ['3.7']
     deploy: true
-    conda_label: 'dev'
     build_docs: false
     publish_docs: false
