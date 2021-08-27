@@ -98,7 +98,8 @@ class CppBuilder:
                               self._config["build_flags"],
                               shell=self._config["shell"])
 
-    def run_cpp_tests(self, test_list):
+    def run_cpp_tests(self, test_list, test_dir='bin'):
         for test in test_list:
-            tools.run_command([os.path.join('bin', self._config["build_config"], test)],
-                              shell=self._config["shell"])
+            tools.run_command(
+                [os.path.join(test_dir, self._config["build_config"], test)],
+                shell=self._config["shell"])
