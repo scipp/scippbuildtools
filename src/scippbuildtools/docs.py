@@ -12,10 +12,11 @@ class DocsBuilder:
     """
     Platform-independent builder to build the docs with sphinx.
     """
-    def __init__(self, docs_dir, prefix, work_dir, data_dir):
+    def __init__(self, docs_dir, prefix, work_dir, data_dir, builder):
         self._work_dir, self._prefix, self._data_dir = tools.get_absolute_paths(
             work_dir, prefix, data_dir, root=docs_dir)
         self._shell = sys.platform == "win32"
+        self._builder = builder
 
     def download_test_data(self,
                            tar_name,
@@ -40,7 +41,9 @@ class DocsBuilder:
         with open(properties_file, "a") as f:
             f.write(content)
 
-    def run_sphinx(self, docs_dir, builder='html'):
+    def run_sphinx(self, docs_dir, builder=None):
+        if builder is None:
+            builder = self._builder
         tools.run_command([
             'sphinx-build', '-b', builder, '-d', self._work_dir, docs_dir, self._prefix
         ],
