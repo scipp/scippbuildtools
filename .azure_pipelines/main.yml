@@ -26,5 +26,6 @@ extends:
       linux:
         py_versions: ['3.7']
     deploy: true
+    conda_label: 'main'
     build_docs: false
     publish_docs: false

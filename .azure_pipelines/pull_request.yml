@@ -31,7 +31,4 @@ extends:
     config:
       linux:
         py_versions: ['3.7']
-    deploy: true
-    conda_label: 'dev'
     build_docs: false
-    publish_docs: false
