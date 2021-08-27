@@ -10,7 +10,7 @@ resources:
     name: scipp/pipelines
     type: github
     endpoint: scipp
-    ref: add_build_docs_option
+    ref: main
 
 trigger:
   - main
