@@ -11,8 +11,7 @@ class CppBuilder:
     """
     Platform-independent builder to run cmake, build, install and C++ tests.
     """
-    def __init__(self, prefix=None, source_dir=None, build_dir=None, caching=None):
-
+    def __init__(self, prefix, source_dir, build_dir, caching, **ignored):
         self._prefix, self._build_dir, self._source_dir = tools.get_absolute_paths(
             prefix, build_dir, source_dir)
         self._caching = caching
@@ -20,8 +19,6 @@ class CppBuilder:
 
     def enter_build_dir(self):
         tools.make_dir(self._build_dir)
-        # if not os.path.exists(self._build_dir):
-        #     os.makedirs(self._build_dir)
         os.chdir(self._build_dir)
 
     def cmake_configure(self):
